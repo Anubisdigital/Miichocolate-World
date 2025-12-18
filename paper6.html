@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miichocolate world Gallery | 50 Masterpieces</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --chocolate: #3C2A21;
+            --caramel: #A67C52;
+            --cream: #F7F0E8;
+            --dark: #1A120B;
+            --light: #FFFCF5;
+            --accent: #B76E79;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: linear-gradient(135deg, #FFFCF5 0%, #F7F0E8 100%);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 252, 245, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: var(--chocolate);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--chocolate);
+        }
+
+        /* Gallery Header */
+        .gallery-header {
+            text-align: center;
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 Q50,5 80,20 T100,50 Q85,80 50,100 T20,80 Q5,50 20,20Z" fill="%23D4AF37" opacity="0.03"/></svg>');
+            background-size: 200px;
+            z-index: -1;
+        }
+
+        .gallery-header h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--chocolate);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .gallery-header p {
+            font-size: 1.3rem;
+            color: var(--caramel);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Page Indicator */
+        .page-indicator {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 15px 30px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+
+        .page-indicator-container {
+            text-align: center;
+        }
+
+        /* Paired Gallery Layout */
+        .paired-gallery {
+            padding: 40px 0 80px;
+            min-height: 1200px;
+        }
+
+        .gallery-pair {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .gallery-pair.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-pair.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .gallery-item {
+            flex: 1;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            transition: var(--transition);
+            height: 400px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) rotate(1deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+
+        .item-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: ;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5); display: none;
+        }
+
+        .item-description {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            min-height: 60px;
+        }
+
+        .item-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .currency {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 60px 0 40px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background-color: transparent;
+            color: var(--chocolate);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page-btn:hover {
+            background-color: var(--gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .page-btn.active {
+            background-color: var(--gold);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .page-range {
+            position: absolute;
+            top: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            color: var(--caramel);
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(to right, var(--gold), var(--caramel));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: var(--caramel);
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        /* Image Counter */
+        .image-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            color: rgba(255, 252, 245, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .gallery-pair {
+                gap: 40px;
+            }
+            
+            .gallery-item {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .gallery-pair {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .gallery-pair.reverse {
+                flex-direction: column;
+            }
+            
+            .gallery-item {
+                width: 100%;
+                height: 300px;
+            }
+            
+            .gallery-header h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 90px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: left 0.5s ease;
+                gap: 25px;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .gallery-header {
+                padding: 80px 0 40px;
+            }
+            
+            .gallery-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .item-overlay {
+                padding: 20px;
+            }
+            
+            .item-title {
+                font-size: 1.5rem;
+            }
+            
+            .item-description {
+                font-size: 0.9rem;
+                display: none;
+            }
+            
+            .page-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .page-range {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-header h1 {
+                font-size: 2rem;
+            }
+            
+            .gallery-item {
+                height: 250px;
+            }
+            
+            .page-indicator {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animation for page transitions */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="logo.png" alt="Miichocolate world Logo" class="logo-img">
+                </a>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#featured">Featured</a></li>
+                    <li><a href="#page1">Gallery</a></li>
+                    <li><a href="paper1.html">Our Story</a></li>
+                    <li><a href="paper5.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Gallery Header -->
+    <section class="gallery-header">
+        <div class="container">
+            <h1>The Ultimate Collection</h1>
+            <p>Fifty masterpieces of chocolate artistry.</p>
+            
+            <div class="page-indicator-container">
+                <div class="page-indicator" id="pageIndicator">
+                    Currently Viewing: Masterpieces 1-10
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loadingIndicator">
+        <i class="fas fa-spinner fa-spin"></i> Loading Masterpieces...
+    </div>
+
+    <!-- Paired Gallery - Only one page is visible at a time -->
+    <section class="paired-gallery">
+        <div class="container">
+            <!-- Page 1: Images 1-10 (Visible by default) -->
+            <div id="page1" class="gallery-page active">
+                <!-- Pair 1 -->
+                <div class="gallery-pair visible">
+                    <div class="gallery-item">
+                        <span class="image-counter">#1</span>
+                        <img src="img1.jpg" alt="Midnight Symphony" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Midnight Symphony</h3>
+                            <p class="item-description">Dark chocolate with vanilla.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#2</span>
+                        <img src="img2.jpg" alt="Golden Ambrosia" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Golden Ambrosia</h3>
+                            <p class="item-description">White chocolate with honey and gold leaf.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 2 -->
+                <div class="gallery-pair reverse visible">
+                    <div class="gallery-item">
+                        <span class="image-counter">#3</span>
+                        <img src="img3.jpg" alt="Ruby Reverie" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Ruby Reverie</h3>
+                            <p class="item-description">Pink chocolate with summer berries.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#4</span>
+                        <img src="img4.jpg" alt="Velvet Eclipse" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Velvet Eclipse</h3>
+                            <p class="item-description">Dark chocolate with black cherry.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 3 -->
+                <div class="gallery-pair visible">
+                    <div class="gallery-item">
+                        <span class="image-counter">#5</span>
+                        <img src="img5.jpg" alt="Honeyed Embrace" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Honeyed Embrace</h3>
+                            <p class="item-description">Milk chocolate with honey and almonds.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#6</span>
+                        <img src="img6.jpg" alt="Celestial Sphere" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Celestial Sphere</h3>
+                            <p class="item-description">Praline, caramel, and gold-dusted chocolate.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 4 -->
+                <div class="gallery-pair reverse visible">
+                    <div class="gallery-item">
+                        <span class="image-counter">#7</span>
+                        <img src="img7.jpg" alt="Obsidian Whisper" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Obsidian Whisper</h3>
+                            <p class="item-description">Venezuelan cocoa with sea salt.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#8</span>
+                        <img src="img8.jpg" alt="Moonlight Sonata" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Moonlight Sonata</h3>
+                            <p class="item-description">White chocolate with silver leaf and jasmine.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 5 -->
+                <div class="gallery-pair visible">
+                    <div class="gallery-item">
+                        <span class="image-counter">#9</span>
+                        <img src="img9.jpg" alt="Caramel Cascade" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Caramel Cascade</h3>
+                            <p class="item-description">Milk chocolate with caramel and sea salt.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#10</span>
+                        <img src="img10.jpg" alt="Gilded Treasure" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Gilded Treasure</h3>
+                            <p class="item-description">Chocolate jewels with edible gold.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Images 11-20 (Hidden by default) -->
+            <div id="page2" class="gallery-page" style="display: none;">
+                <!-- Pair 1 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#11</span>
+                        <img src="img11.jpg" alt="Embers of Desire" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Embers of Desire</h3>
+                            <p class="item-description">Dark chocolate with chili and orange.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#12</span>
+                        <img src="img12.jpg" alt="Velvet Morning" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Velvet Morning</h3>
+                            <p class="item-description">Milk chocolate with espresso and hazelnut.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 2 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#13</span>
+                        <img src="img13.jpg" alt="Pearl of Dawn" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Pearl of Dawn</h3>
+                            <p class="item-description">White chocolate with rose petals and lychee.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#14</span>
+                        <img src="img14.jpg" alt="Nocturne Collection" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Nocturne Collection</h3>
+                            <p class="item-description">Twelve midnight-inspired chocolates.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 3 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#15</span>
+                        <img src="img15.jpg" alt="Forge of Heaven" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Forge of Heaven</h3>
+                            <p class="item-description">Dark chocolate with caramelized almond.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#16</span>
+                        <img src="img16.jpg" alt="Silken Twilight" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Silken Twilight</h3>
+                            <p class="item-description">Dark chocolate with lavender and blueberry.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 4 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#17</span>
+                        <img src="img17.jpg" alt="Sunset Embrace" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Sunset Embrace</h3>
+                            <p class="item-description">Milk chocolate with salted caramel and orange zest.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#18</span>
+                        <img src="img18.jpg" alt="Crystal Dreams" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Crystal Dreams</h3>
+                            <p class="item-description">White chocolate with ginger and lemon.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 5 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#19</span>
+                        <img src="img19.jpg" alt="Royal Decadence" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Royal Decadence</h3>
+                            <p class="item-description">Dark chocolate with port wine and blackcurrant.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#20</span>
+                        <img src="img20.jpg" alt="Morning Dew" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Morning Dew</h3>
+                            <p class="item-description">Milk chocolate with fresh mint and lime.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Images 21-30 (Hidden by default) -->
+            <div id="page3" class="gallery-page" style="display: none;">
+                <!-- Pair 1 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#21</span>
+                        <img src="img21.jpg" alt="Autumn Blaze" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Autumn Blaze</h3>
+                            <p class="item-description">Dark chocolate with pumpkin spice and pecans.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#22</span>
+                        <img src="img22.jpg" alt="Winter Frost" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Winter Frost</h3>
+                            <p class="item-description">White chocolate with peppermint and silver dust.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 2 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#23</span>
+                        <img src="img23.jpg" alt="Spring Blossom" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Spring Blossom</h3>
+                            <p class="item-description">Milk chocolate with cherry blossom and white peach.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#24</span>
+                        <img src="img24.jpg" alt="Summer Solstice" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Summer Solstice</h3>
+                            <p class="item-description">Dark chocolate with passion fruit and mango.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 3 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#25</span>
+                        <img src="img25.jpg" alt="Midnight Bloom" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Midnight Bloom</h3>
+                            <p class="item-description">Dark chocolate with jasmine and star anise.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#26</span>
+                        <img src="img26.jpg" alt="Golden Hour" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Golden Hour</h3>
+                            <p class="item-description">Milk chocolate with honeycomb and toasted coconut.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 4 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#27</span>
+                        <img src="img27.jpg" alt="Starlight Symphony" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Starlight Symphony</h3>
+                            <p class="item-description">White chocolate with silver stars and vanilla bean.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#28</span>
+                        <img src="img28.jpg" alt="Ocean Whisper" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Ocean Whisper</h3>
+                            <p class="item-description">Dark chocolate with sea salt and kelp.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 5 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#29</span>
+                        <img src="img29.jpg" alt="Mountain Mist" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Mountain Mist</h3>
+                            <p class="item-description">Milk chocolate with pine and blackberry.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#30</span>
+                        <img src="img30.jpg" alt="Desert Mirage" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Desert Mirage</h3>
+                            <p class="item-description">White chocolate with cactus flower and lime.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Images 31-40 (Hidden by default) -->
+            <div id="page4" class="gallery-page" style="display: none;">
+                <!-- Pair 1 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#31</span>
+                        <img src="img31.jpg" alt="Forest Canopy" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Forest Canopy</h3>
+                            <p class="item-description">Dark chocolate with wild berries.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#32</span>
+                        <img src="img32.jpg" alt="River Stone" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">River Stone</h3>
+                            <p class="item-description">Milk chocolate with river mint.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 2 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#33</span>
+                        <img src="img33.jpg" alt="Volcanic Ash" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Volcanic Ash</h3>
+                            <p class="item-description">Dark chocolate with chili ash and smoked salt.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#34</span>
+                        <img src="img34.jpg" alt="Cloud Nine" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Cloud Nine</h3>
+                            <p class="item-description">White chocolate with marshmallow and vanilla.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 3 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#35</span>
+                        <img src="img35.jpg" alt="Ancient Scroll" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Ancient Scroll</h3>
+                            <p class="item-description">Dark chocolate with papyrus honey and spices.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#36</span>
+                        <img src="img36.jpg" alt="Future Vision" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Future Vision</h3>
+                            <p class="item-description">Milk chocolate with molecular gastronomy elements.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 4 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#37</span>
+                        <img src="img37.jpg" alt="Time Capsule" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Time Capsule</h3>
+                            <p class="item-description">White chocolate with preserved fruits and flowers.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#38</span>
+                        <img src="img38.jpg" alt="Memory Lane" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Memory Lane</h3>
+                            <p class="item-description">Dark chocolate with cereal.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 5 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#39</span>
+                        <img src="img39.jpg" alt="Hope Diamond" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Hope Diamond</h3>
+                            <p class="item-description">Blue chocolate with diamond dust and blueberry.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#40</span>
+                        <img src="img40.jpg" alt="Philosopher's Stone" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Philosopher's Stone</h3>
+                            <p class="item-description">Milk chocolate with gold leaf and herbs.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Images 41-50 (Hidden by default) -->
+            <div id="page5" class="gallery-page" style="display: none;">
+                <!-- Pair 1 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#41</span>
+                        <img src="img41.jpg" alt="Galaxy Core" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Galaxy Core</h3>
+                            <p class="item-description">Dark chocolate with cosmic berries.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#42</span>
+                        <img src="img42.jpg" alt="Black Hole" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Black Hole</h3>
+                            <p class="item-description">Dark chocolate.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 2 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#43</span>
+                        <img src="img43.jpg" alt="Supernova" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Supernova</h3>
+                            <p class="item-description">White chocolate with popping candy and citrus.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#44</span>
+                        <img src="img44.jpg" alt="Nebula Dream" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Nebula Dream</h3>
+                            <p class="item-description">Swirled chocolate with edible glitter and starfruit.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 3 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#45</span>
+                        <img src="img45.jpg" alt="Time Traveler" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Time Traveler</h3>
+                            <p class="item-description">Chocolate with changing flavors.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#46</span>
+                        <img src="img46.jpg" alt="Parallel Universe" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Parallel Universe</h3>
+                            <p class="item-description">Two chocolates in one.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 4 -->
+                <div class="gallery-pair reverse">
+                    <div class="gallery-item">
+                        <span class="image-counter">#47</span>
+                        <img src="img47.jpg" alt="Infinity Loop" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Infinity Loop</h3>
+                            <p class="item-description">Chocolate shaped like a möbius strip.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#48</span>
+                        <img src="img48.jpg" alt="Quantum Leap" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Quantum Leap</h3>
+                            <p class="item-description">Chocolate with changing flavors.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 5 -->
+                <div class="gallery-pair">
+                    <div class="gallery-item">
+                        <span class="image-counter">#49</span>
+                        <img src="img49.jpg" alt="Eternal Flame" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Eternal Flame</h3>
+                            <p class="item-description">Dark chocolate with cinnamon and chili.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <span class="image-counter">#50</span>
+                        <img src="img50.jpg" alt="Final Frontier" class="gallery-img">
+                        <div class="item-overlay">
+                            <h3 class="item-title">Final Frontier</h3>
+                            <p class="item-description">Combination of all flavors.</p>
+                            <div class="item-price">10,000 <span class="currency">UGX</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="nav-btn" id="nextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn active" data-page="1">
+                    1
+                    <span class="page-range">1-10</span>
+                </button>
+                <button class="page-btn" data-page="2">
+                    2
+                    <span class="page-range">11-20</span>
+                </button>
+                <button class="page-btn" data-page="3">
+                    3
+                    <span class="page-range">21-30</span>
+                </button>
+                <button class="page-btn" data-page="4">
+                    4
+                    <span class="page-range">31-40</span>
+                </button>
+                <button class="page-btn" data-page="5">
+                    5
+                    <span class="page-range">41-50</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Miichocolate world Gallery</h3>
+                    <p>50 masterpieces of chocolate artistry. All prices in UGX.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Gallery Pages</h3>
+                    <ul class="footer-links">
+                        <li><a href="#page1" class="page-link" data-page="1">Masterpieces 1-10</a></li>
+                        <li><a href="#page2" class="page-link" data-page="2">Masterpieces 11-20</a></li>
+                        <li><a href="#page3" class="page-link" data-page="3">Masterpieces 21-30</a></li>
+                        <li><a href="#page4" class="page-link" data-page="4">Masterpieces 31-40</a></li>
+                        <li><a href="#page5" class="page-link" data-page="5">Masterpieces 41-50</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home Page</a></li>
+                        <li><a href="paper1.html">Our Chocolate Story</a></li>
+                        <li><a href="paper2.html">Atelier Locations</a></li>
+                        <li><a href="paper3.html">Tasting Workshops</a></li>
+                        <li><a href="paper5.html">Contact & Orders</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; Miichocolate world. All rights reserved. | 50 Masterpieces Gallery | All prices in UGX</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Pagination Logic
+        const pageButtons = document.querySelectorAll('.page-btn');
+        const galleryPages = document.querySelectorAll('.gallery-page');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageIndicator = document.getElementById('pageIndicator');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const pageLinks = document.querySelectorAll('.page-link');
+        
+        let currentPage = 1;
+        const totalPages = 5;
+        
+        // Page ranges and descriptions
+        const pageInfo = {
+            1: { range: '1-10', title: 'Midnight Symphony to Gilded Treasure' },
+            2: { range: '11-20', title: 'Embers of Desire to Morning Dew' },
+            3: { range: '21-30', title: 'Autumn Blaze to Desert Mirage' },
+            4: { range: '31-40', title: 'Forest Canopy to Philosopher\'s Stone' },
+            5: { range: '41-50', title: 'Galaxy Core to Final Frontier' }
+        };
+        
+        // Function to show loading indicator
+        function showLoading() {
+            loadingIndicator.classList.add('active');
+        }
+        
+        // Function to hide loading indicator
+        function hideLoading() {
+            loadingIndicator.classList.remove('active');
+        }
+        
+        // Function to change page with loading animation
+        function showPage(pageNumber) {
+            showLoading();
+            
+            // Hide current page after a short delay
+            setTimeout(() => {
+                // Hide all pages
+                galleryPages.forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                // Show selected page
+                const targetPage = document.getElementById(`page${pageNumber}`);
+                targetPage.style.display = 'block';
+                
+                // Animate the pairs on the new page
+                const pairs = targetPage.querySelectorAll('.gallery-pair');
+                pairs.forEach((pair, index) => {
+                    pair.classList.remove('visible');
+                    setTimeout(() => {
+                        pair.classList.add('visible');
+                    }, index * 100);
+                });
+                
+                // Update active button
+                pageButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (parseInt(btn.getAttribute('data-page')) === pageNumber) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Update page indicator
+                pageIndicator.textContent = `Currently Viewing: Masterpieces ${pageInfo[pageNumber].range} | ${pageInfo[pageNumber].title}`;
+                
+                // Update navigation buttons
+                prevBtn.disabled = pageNumber === 1;
+                nextBtn.disabled = pageNumber === totalPages;
+                
+                // Update current page
+                currentPage = pageNumber;
+                
+                // Hide loading indicator
+                setTimeout(hideLoading, 300);
+                
+                // Scroll to top of gallery
+                window.scrollTo({
+                    top: document.querySelector('.paired-gallery').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update URL hash
+                window.location.hash = `page${pageNumber}`;
+            }, 300);
+        }
+        
+        // Initialize page 1
+        showPage(1);
+        
+        // Page button click events
+        pageButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const pageNumber = parseInt(button.getAttribute('data-page'));
+                if (pageNumber !== currentPage) {
+                    showPage(pageNumber);
+                }
+            });
+        });
+        
+        // Footer page link click events
+        pageLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageNumber = parseInt(link.getAttribute('data-page'));
+                if (pageNumber !== currentPage) {
+                    showPage(pageNumber);
+                }
+            });
+        });
+        
+        // Previous button
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+        
+        // Next button
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentPage > 1) {
+                showPage(currentPage - 1);
+            } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+        
+        // Handle URL hash on page load
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const pageNumber = parseInt(hash.replace('#page', ''));
+                if (pageNumber >= 1 && pageNumber <= totalPages) {
+                    // Small delay to ensure everything is loaded
+                    setTimeout(() => {
+                        showPage(pageNumber);
+                    }, 500);
+                }
+            }
+        });
+        
+        // Add hover effect to page buttons
+        pageButtons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                if (!button.classList.contains('active')) {
+                    button.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+                }
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                if (!button.classList.contains('active')) {
+                    button.style.backgroundColor = 'transparent';
+                }
+            });
+        });
+        
+        // Image hover enhancement
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+    </script>
+</body>
+</html>
