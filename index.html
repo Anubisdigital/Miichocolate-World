@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miichocolate world | Artisan Chocolate Experience</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --chocolate: #3C2A21;
+            --caramel: #A67C52;
+            --cream: #F7F0E8;
+            --dark: #1A120B;
+            --light: #FFFCF5;
+            --accent: #B76E79;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 252, 245, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: var(--chocolate);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--chocolate);
+        }
+
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 120px;
+            background: linear-gradient(135deg, rgba(247, 240, 232, 0.9) 0%, rgba(255, 252, 245, 0.7) 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 Q50,5 80,20 T100,50 Q85,80 50,100 T20,80 Q5,50 20,20Z" fill="%23D4AF37" opacity="0.03"/></svg>');
+            background-size: 200px;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: var(--chocolate);
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--caramel);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--gold), var(--caramel));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to right, var(--caramel), var(--gold));
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover:before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .featured-section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--chocolate);
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .featured-item {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .featured-item:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .featured-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .featured-item:hover .featured-img {
+            transform: scale(1.05);
+        }
+
+        .featured-content {
+            padding: 25px;
+        }
+
+        .featured-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--chocolate);
+        }
+
+        .featured-content p {
+            color: var(--caramel);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            min-height: 120px;
+        }
+
+        .price {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .cta-section {
+            background-color: var(--chocolate);
+            color: var(--cream);
+            padding: 100px 0;
+            text-align: center;
+            border-radius: 40px;
+            margin: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="%23D4AF37" stroke-width="0.5" opacity="0.1"/></svg>');
+            background-size: 150px;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: rgba(255, 252, 245, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--cream);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            color: rgba(255, 252, 245, 0.7);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 100px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 100px);
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 60px;
+                transition: left 0.5s ease;
+                gap: 30px;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero {
+                padding-top: 150px;
+                padding-bottom: 80px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Miichocolate world Logo" class="logo-img">
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#featured">Collections</a></li>
+                    <li><a href="paper6.html">Gallery</a></li>
+                   
+                    
+                    <li><a href="paper3.html">Location</a></li>
+                  
+                    <li><a href="paper5.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>The Art of <span>Decadence</span> Perfected</h1>
+            <p>Immerse yourself in a world where cocoa transforms into pure luxury. Each creation is a masterpiece of flavor, texture, and visual delight—crafted for moments that deserve extraordinary indulgence.</p>
+            <a href="paper6.html" class="btn">Explore Our Gallery</a>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-section" id="featured">
+        <div class="container">
+            <div class="section-title">
+                <h2>Curated Masterpieces</h2>
+            </div>
+            
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <img src="img1.jpg" alt="Midnight Symphony" class="featured-img">
+                    <div class="featured-content">
+                        <h3>Midnight Symphony</h3>
+                        <p>An exquisite journey through darkness and light—single-origin white chocolate with whispers of coconut and a creamy test finish that lingers like a memory.</p>
+                        <span class="price">UGX1000</span>
+                        <a href="paper6.html" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">Discover</a>
+                    </div>
+                </div>
+                
+                <div class="featured-item">
+                    <img src="img2.jpg" alt="Golden Ambrosia" class="featured-img">
+                    <div class="featured-content">
+                        <h3>Chocolate and peanut in a golden wrap</h3>
+                        <p>Liquid sunlight captured in chocolate form—white chocolate infused with peanut  creating a celestial experience that transcends ordinary sweetness.</p>
+                        <span class="price">UGX1000</span>
+                        <a href="paper6.html" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">Discover</a>
+                    </div>
+                </div>
+                
+                <div class="featured-item">
+                    <img src="time.jpg" alt="Ruby Reverie" class="featured-img">
+                    <div class="featured-content">
+                        <h3>Everlove</h3>
+                A timeless token of love, crafted to endure. Elegant, eternal, and endlessly sweet—cherish every moment, forever.<p></p>
+                        <span class="price">UGX1000</span>
+                        <a href="paper6.html" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">Discover</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Unveil the Extraordinary</h2>
+            <p>Step beyond the ordinary into a realm where chocolate becomes art, flavor becomes emotion, and every moment becomes a cherished memory waiting to be savored.</p>
+            <a href="paper6.html" class="btn">View Full Collection</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Miichocolate world</h3>
+                    <p>Where cocoa transforms into liquid poetry and every creation tells a story of passion, precision, and pure indulgence.</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/mii_chocolate_world?igsh=ZXpiNndhaTUycmly&utm_source=qr"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@miichocolateworld0?_r=1&_t=ZM-92KQBxR28ey"><i class="fab fa-tiktok"></i></a>
+            <a href="    https://wa.me/256742445467?text=Hello%20Miichocolate world.
+"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="paper6.html">Signature Masterpieces</a></li>
+                        <li><a href="paper6.html">Seasonal Wonders</a></li>
+                        <li><a href="paper6.html">Gilded Treasures</a></li>
+                        <li><a href="paper6.html">Artisan Confections</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Experience</h3>
+                    <ul class="footer-links">
+                        <li><a href="paper1.html">Our Philosophy</a></li>
+                        <li><a href="paper2.html">Atelier Visits</a></li>
+                        <li><a href="paper3.html">Tasting Journeys</a></li>
+                        <li><a href="paper4.html">Cocoa Chronicles</a></li>
+                        <li><a href="paper5.html">Connoisseur's Corner</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy;  Miichocolate world. All rights reserved. | Crafted with passion and precision</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const header = document.getElementById('header');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Animate featured items on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe elements for animation
+        document.querySelectorAll('.featured-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
